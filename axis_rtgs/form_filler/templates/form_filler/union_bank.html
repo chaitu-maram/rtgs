@@ -1,0 +1,420 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Union Bank RTGS/NEFT/IMPS Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Sidebar hover gradient */
+    .hover-gradient {
+      position: relative;
+      overflow: hidden;
+      background: white;
+      color: #1f2937;
+      border: 1px solid #e5e7eb;
+      transition: transform 0.2s ease;
+    }
+    .hover-gradient::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to right, #1e3a8a, #2563eb);
+      transition: all 0.4s ease;
+      z-index: 0;
+    }
+    .hover-gradient:hover::before { left: 0; }
+    .hover-gradient:hover { color: white; transform: translateX(4px); }
+    .hover-gradient > * { position: relative; z-index: 10; }
+
+    /* Input focus styling */
+    input:focus, select:focus, textarea:focus {
+      outline: none !important;
+      border-color: #2563eb !important;
+      box-shadow: 0 0 0 2px #2563eb !important;
+    }
+
+    /* Please Wait Modal styling */
+    #pleaseWaitModal { background-color: rgba(30, 58, 138, 0.6); }
+    #pleaseWaitModal > div {
+      background: white;
+      border-radius: 0.5rem;
+      padding: 2rem;
+      box-shadow: 0 10px 15px rgba(37, 99, 235, 0.4);
+      max-width: 280px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Coming Soon Modal styling */
+    #comingSoonModal { background-color: rgba(0,0,0,0.5); }
+
+    /* Beneficiary autocomplete dropdown */
+    .ben-dropdown {
+      position: absolute;
+      z-index: 50;
+      left: 0;
+      right: 0;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.375rem;
+      max-height: 12rem;
+      overflow-y: auto;
+      box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+    }
+    .ben-dropdown li { padding: 0.5rem 0.75rem; cursor: pointer; }
+    .ben-dropdown li:hover { background-color: rgba(37, 99, 235, 0.1); }
+
+    /* scrollbar */
+    .ben-dropdown::-webkit-scrollbar { width: 6px; }
+    .ben-dropdown::-webkit-scrollbar-thumb { background: rgba(37,99,235,0.6); border-radius: 10px; }
+
+    /* Wave animation */
+    #wave1, #wave2 {
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-name: waveMove;
+      animation-duration: 4000ms;
+    }
+    #wave2 { animation-direction: reverse; animation-duration: 6000ms; }
+    @keyframes waveMove { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex font-sans">
+
+  <!-- Sidebar -->
+  <!-- <aside class="w-64 bg-gradient-to-b from-[#FFF44F] to-white text-black h-screen fixed top-0 left-0 p-6 flex flex-col space-y-8 shadow-lg">
+    <div class="flex justify-start items-center space-x-2">
+      <img src="/media/ubf.png" alt="Logo" class="h-8 w-auto rounded">
+    </div>
+    <div class="grid grid-cols-1 gap-2">
+      <a href="{% url 'axis_bank' %}" class="hover-gradient grid grid-cols-[32px_1fr] items-center gap-3 p-3 rounded-md">
+        <img src="/media/axis.png" alt="Axis Bank" class="h-8 w-8 object-contain flex-shrink-0">
+        <span class="text-sm font-medium">AXIS BANK</span>
+      </a>
+      <a href="#" class="coming-soon hover-gradient grid grid-cols-[32px_1fr] items-center gap-3 p-3 rounded-md">
+        <img src="/media/kotak.png" alt="Kotak Bank" class="h-8 w-8 object-contain flex-shrink-0">
+        <span class="text-sm font-medium">KOTAK BANK</span>
+      </a>
+      <a href="#" class="coming-soon hover-gradient grid grid-cols-[32px_1fr] items-center gap-3 p-3 rounded-md">
+        <img src="/media/sbi.png" alt="SBI" class="h-8 w-8 object-contain flex-shrink-0">
+        <span class="text-sm font-medium">SBI BANK</span>
+      </a>
+      <a href="#" class="coming-soon hover-gradient grid grid-cols-[32px_1fr] items-center gap-3 p-3 rounded-md">
+        <img src="/media/hdfc.png" alt="HDFC" class="h-8 w-8 object-contain flex-shrink-0">
+        <span class="text-sm font-medium">HDFC BANK</span>
+      </a>
+      <a href="#" class="coming-soon hover-gradient grid grid-cols-[32px_1fr] items-center gap-3 p-3 rounded-md">
+        <img src="/media/icici.png" alt="ICICI Bank" class="h-8 w-8 object-contain flex-shrink-0">
+        <span class="text-sm font-medium">ICICI BANK</span>
+      </a>
+    </div>
+  </aside> -->
+
+
+
+  <aside class="w-64 bg-gradient-to-b from-[#FFF44F] to-white text-black h-screen fixed top-0 left-0 p-6 flex flex-col space-y-8 shadow-lg">
+  <div class="flex justify-start items-center space-x-2">
+      <img src="/media/ubf.png" alt="Logo" class="h-8 w-auto rounded">
+  </div>
+
+  <div class="grid grid-cols-1 gap-2">
+    <a href="{% url 'select_specific_bank' 'union' %}" class="hover-gradient grid grid-cols-[32px_1fr] items-center gap-3 p-3 rounded-md">
+      <img src="/media/union.png" alt="Union Bank" class="h-8 w-8 object-contain flex-shrink-0" />
+      <span class="text-sm font-medium">UNION BANK</span>
+    </a>
+
+    <a href="{% url 'select_specific_bank' 'axis' %}" class="hover-gradient grid grid-cols-[32px_1fr] items-center gap-3 p-3 rounded-md">
+      <img src="/media/axis.png" alt="Axis Bank" class="h-8 w-8 object-contain flex-shrink-0" />
+      <span class="text-sm font-medium">AXIS BANK</span>
+    </a>
+
+    <a href="{% url 'select_specific_bank' 'sbi' %}" class="hover-gradient grid grid-cols-[32px_1fr] items-center gap-3 p-3 rounded-md">
+      <img src="/media/sbi.png" alt="SBI" class="h-8 w-8 object-contain flex-shrink-0" />
+      <span class="text-sm font-medium">SBI BANK</span>
+    </a>
+
+    <a href="{% url 'select_specific_bank' 'hdfc' %}" class="hover-gradient grid grid-cols-[32px_1fr] items-center gap-3 p-3 rounded-md">
+      <img src="/media/hdfc.png" alt="HDFC Bank" class="h-8 w-8 object-contain flex-shrink-0" />
+      <span class="text-sm font-medium">HDFC BANK</span>
+    </a>
+
+    <a href="{% url 'select_specific_bank' 'icici' %}" class="hover-gradient grid grid-cols-[32px_1fr] items-center gap-3 p-3 rounded-md">
+      <img src="/media/icici.png" alt="ICICI Bank" class="h-8 w-8 object-contain flex-shrink-0" />
+      <span class="text-sm font-medium">ICICI BANK</span>
+    </a>
+
+    <!-- 🔁 Go to Select Bank -->
+      <a href="{% url 'select_bank' %}"
+         class="hover-gradient grid grid-cols-[32px_1fr] items-center gap-3 p-3 rounded-md">
+        <svg xmlns="http://www.w3.org/2000/svg" 
+             class="w-5 h-5"
+             fill="none" 
+             viewBox="0 0 24 24"
+             stroke="currentColor"
+             stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 7h18M3 12h18M3 17h18" />
+        </svg>
+        <span class="font-medium">Select Bank Accounts</span>
+      </a>
+
+
+
+      <form action="{% url 'logout' %}" method="post" class="w-full">
+  {% csrf_token %}
+  <button type="submit"
+          class="hover-gradient grid grid-cols-[32px_1fr] items-center gap-3 p-3 rounded-md w-full text-left">
+    <svg xmlns="http://www.w3.org/2000/svg"
+         class="w-5 h-5 text-black-600"
+         fill="none"
+         viewBox="0 0 24 24"
+         stroke="currentColor"
+         stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round"
+            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1m0-10V5m0 0a2 2 0 00-2 2v1m0 10v1a2 2 0 002 2h5a2 2 0 002-2v-1" />
+    </svg>
+    <span class="font-medium text-black-600">Logout</span>
+  </button>
+</form>
+
+
+
+  </div>
+</aside>
+
+  <!-- Main Content -->
+  <div class="flex-1 flex flex-col ml-64">
+    <header class="bg-gradient-to-r from-white to-[#FFF44F] text-black px-6 py-4 flex justify-end items-center shadow-md">
+      <img src="/media/ubf.png" alt="Logo" class="h-10 w-auto rounded">
+    </header>
+
+    <main class="flex items-center justify-center flex-1 p-8">
+      <div class="bg-white p-10 rounded-xl shadow-xl w-full max-w-6xl border border-gray-200">
+        <h2 class="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-blue-900 to-blue-600 text-transparent bg-clip-text">
+          Union Bank RTGS / NEFT Form
+        </h2>
+
+        <form method="POST">
+          {% csrf_token %}
+
+          
+
+          <!-- -------------------- General Details -------------------- -->
+          <h2 class="text-xl font-semibold mb-4 border-b-2 border-gray-300 pb-1 mt-4">General Details</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div>
+              {{ form.date_of_remittance.label_tag }}
+              {{ form.date_of_remittance }}
+              {% if form.date_of_remittance.errors %}
+                <p class="text-red-600 text-sm mt-1">{{ form.date_of_remittance.errors }}</p>
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- -------------------- Remitter Details -------------------- -->
+          <h2 class="text-xl font-semibold mb-4 border-b-2 border-gray-300 pb-1 mt-6">Remitter Details</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div>
+              {{ form.remitter_account_number.label_tag }}
+              {{ form.remitter_account_number }}
+              {% if form.remitter_account_number.errors %}
+                <p class="text-red-600 text-sm mt-1">{{ form.remitter_account_number.errors }}</p>
+              {% endif %}
+            </div>
+            <div>
+              {{ form.remitter_name.label_tag }}
+              {{ form.remitter_name }}
+              {% if form.remitter_name.errors %}
+                <p class="text-red-600 text-sm mt-1">{{ form.remitter_name.errors }}</p>
+              {% endif %}
+            </div>
+            <div class="col-span-2">
+              {{ form.remitter_address.label_tag }} {{ form.remitter_address }}
+              {% if form.remitter_address.errors %}
+                <p class="text-red-600 text-sm mt-1">{{ form.remitter_address.errors }}</p>
+              {% endif %}
+            </div>
+            <div>{{ form.pan_number.label_tag }} {{ form.pan_number }}</div>
+            <div>{{ form.mobile_number.label_tag }} {{ form.mobile_number }}</div>
+            <div>{{ form.cheque_number.label_tag }} {{ form.cheque_number }}</div>
+            <div>{{ form.cheque_date.label_tag }} {{ form.cheque_date }}</div>
+          </div>
+
+          <!-- -------------------- Beneficiary Details -------------------- -->
+          <h2 class="text-xl font-semibold mb-4 border-b-2 border-gray-300 pb-1 mt-6">Beneficiary Details</h2>
+          <!-- Search input for autocomplete -->
+          <div class="mb-4 relative">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Search Beneficiary</label>
+            <input id="beneficiarySearch" type="text" placeholder="Search by name or account" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <ul id="beneficiaryDropdown" class="ben-dropdown hidden"></ul>
+            <p class="text-xs text-gray-500 mt-1">Click a suggestion to auto-fill beneficiary fields.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div>{{ form.beneficiary_account_number.label_tag }} {{ form.beneficiary_account_number }}</div>
+            <div>{{ form.beneficiary_name.label_tag }} {{ form.beneficiary_name }}</div>
+            <div>{{ form.beneficiary_branch_name.label_tag }} {{ form.beneficiary_branch_name }}</div>
+            <div>{{ form.beneficiary_branch_address.label_tag }} {{ form.beneficiary_branch_address }}</div>
+            <div>{{ form.beneficiary_ifsc.label_tag }} {{ form.beneficiary_ifsc }}</div>
+          </div>
+
+          <!-- -------------------- Transaction Details -------------------- -->
+          <h2 class="text-xl font-semibold mb-4 border-b-2 border-gray-300 pb-1 mt-6">Transaction Details</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div>{{ form.amount.label_tag }} {{ form.amount }}</div>
+            <div>{{ form.payment_mode.label_tag }} {{ form.payment_mode }}</div>
+          </div>
+
+          <div class="mt-6 flex justify-center">
+            <button type="submit" class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition duration-200">
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <!-- Please Wait Modal -->
+  <div id="pleaseWaitModal" class="fixed inset-0 flex items-center justify-center hidden z-50">
+    <div>
+      <svg viewBox="0 0 100 100" width="80" height="80" class="mb-6">
+        <defs><clipPath id="circleClip"><circle cx="50" cy="50" r="45" /></clipPath></defs>
+        <circle cx="50" cy="50" r="45" fill="none" stroke="#2563eb" stroke-width="5" />
+        <g clip-path="url(#circleClip)">
+          <path id="wave1" fill="#3b82f6" opacity="0.6"></path>
+          <path id="wave2" fill="#60a5fa" opacity="0.6"></path>
+        </g>
+      </svg>
+      <p class="text-blue-900 font-semibold text-lg select-none text-center">Please wait...</p>
+    </div>
+  </div>
+
+  <!-- Coming Soon Modal -->
+  <div id="comingSoonModal" class="fixed inset-0 flex items-center justify-center hidden z-50">
+    <div class="bg-white rounded-lg p-8 max-w-sm w-full shadow-lg text-center relative">
+      <button id="closeModalBtn" class="absolute top-3 right-3 text-gray-500 hover:text-gray-900 text-xl font-bold">&times;</button>
+      <h3 class="text-2xl font-bold mb-4 text-blue-700">Coming Soon!</h3>
+      <p class="text-gray-700 mb-6">This bank hasn't been added yet. <br> Stay tuned!</p>
+      <button id="modalOkBtn" class="bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-6 rounded">OK</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // --- Beneficiary autocomplete ---
+      const searchInput = document.getElementById('beneficiarySearch');
+      const dropdown = document.getElementById('beneficiaryDropdown');
+      let debounceTimer;
+
+      function safeSet(id, value){
+        const el = document.getElementById(id);
+        if(el) el.value = value || '';
+      }
+
+      searchInput.addEventListener('input', function(){
+        const q = this.value.trim();
+        clearTimeout(debounceTimer);
+        if(!q){ dropdown.classList.add('hidden'); dropdown.innerHTML=''; return; }
+
+        debounceTimer = setTimeout(()=>{
+          fetch(`/fetch-beneficiaries/?q=${encodeURIComponent(q)}`)
+          .then(res=>res.json())
+          .then(data=>{
+            const results = data.results || [];
+            dropdown.innerHTML='';
+            if(results.length===0){ dropdown.innerHTML='<li class="text-gray-500">No results found</li>'; dropdown.classList.remove('hidden'); return; }
+
+            results.forEach(b=>{
+              const li = document.createElement('li');
+              li.innerHTML = `<div class="font-medium text-sm">${b.name||''}</div>
+                              <div class="text-xs text-gray-500">${b.account_number||''} • ${b.ifsc_code||''}</div>`;
+              li.addEventListener('click', ()=>{
+                safeSet('id_beneficiary_name', b.name);
+                safeSet('id_beneficiary_account_number', b.account_number);
+                safeSet('id_beneficiary_branch_name', b.bank_name);
+                safeSet('id_beneficiary_branch_address', b.bank_address);
+                safeSet('id_beneficiary_ifsc', b.ifsc_code);
+                searchInput.value = b.name || b.account_number;
+                dropdown.classList.add('hidden');
+              });
+              dropdown.appendChild(li);
+            });
+            dropdown.classList.remove('hidden');
+          })
+          .catch(err=>{ console.error(err); dropdown.innerHTML='<li class="text-gray-500">Error fetching results</li>'; dropdown.classList.remove('hidden'); });
+        }, 250);
+      });
+
+      document.addEventListener('click', e=>{
+        if(!searchInput.parentNode.contains(e.target)) dropdown.classList.add('hidden');
+      });
+
+      // --- Coming Soon modal ---
+      const modal = document.getElementById('comingSoonModal');
+      const closeBtn = document.getElementById('closeModalBtn');
+      const okBtn = document.getElementById('modalOkBtn');
+      const comingSoonLinks = document.querySelectorAll('.coming-soon');
+      comingSoonLinks.forEach(link => {
+        link.addEventListener('click', function(e){
+          e.preventDefault();
+          modal.classList.remove('hidden');
+        });
+      });
+      function closeModal(){ modal.classList.add('hidden'); }
+      closeBtn.addEventListener('click', closeModal);
+      okBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', e=>{ if(e.target===modal) closeModal(); });
+
+      // --- Please Wait modal ---
+      const form = document.querySelector('form');
+      form.addEventListener('submit', function () {
+        const modalPW = document.getElementById('pleaseWaitModal');
+        modalPW.style.backgroundColor = 'rgba(30, 58, 138, 0.6)';
+        modalPW.classList.remove('hidden');
+        const self = this;
+        const pollInterval = setInterval(() => {
+          if (document.cookie.indexOf('fileDownload=true') !== -1) {
+            clearInterval(pollInterval);
+            modalPW.classList.add('hidden');
+            self.reset();
+            document.cookie = 'fileDownload=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+          }
+        }, 500);
+      });
+
+      // --- Wave animation ---
+      function generateWavePath(amplitude=10,wavelength=40,phase=0,width=200,offsetY=55){
+        let path=`M 0 ${offsetY} `;
+        for(let x=0;x<=width;x++){ const y=amplitude*Math.sin(2*Math.PI/wavelength*x+phase)+offsetY; path+=`L ${x} ${y} `; }
+        path+=`L ${width} 100 L 0 100 Z`; return path;
+      }
+      const wave1=document.getElementById('wave1');
+      const wave2=document.getElementById('wave2');
+      let phase=0;
+      function animateWaves(){ phase+=0.05; wave1.setAttribute('d',generateWavePath(7,40,phase,200,55)); wave2.setAttribute('d',generateWavePath(10,50,phase+Math.PI,200,55)); requestAnimationFrame(animateWaves); }
+      animateWaves();
+    });
+
+    // ---------------------- Auto-refresh after document download ----------------------
+const checkDownload = setInterval(() => {
+  if (document.cookie.includes("fileDownload=true")) {
+    // Remove the temporary cookie
+    document.cookie = "fileDownload=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    
+    // ✅ Refresh the page
+    // Keeps remitter details (from session)
+    // Clears only beneficiary fields
+    window.location.reload();
+    
+    clearInterval(checkDownload);
+  }
+}, 1000);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Select Bank</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      background-color: #f7f9fc;
+      font-family: "Poppins", sans-serif;
+    }
+    .bank-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .bank-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+
+<body class="flex min-h-screen bg-gray-100">
+
+  <!-- 🌐 LEFT SIDEBAR -->
+  <aside class="w-64 bg-gradient-to-b from-blue-400 to-white-900 text-white flex flex-col shadow-xl">
+    <div class="p-6 text-center border-b border-blue-300">
+      <h1 class="text-2xl font-bold tracking-wide">🏦 Bank Panel</h1>
+    </div>
+
+    <nav class="flex-1 px-4 py-6 space-y-4">
+      <!-- Add Account -->
+      <a href="{% url 'select_bank_3' %}"
+         class="flex items-center gap-3 px-4 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 transition-all duration-200 shadow-md hover:shadow-lg">
+        <svg xmlns="http://www.w3.org/2000/svg" 
+             class="w-5 h-5" 
+             fill="none" 
+             viewBox="0 0 24 24" 
+             stroke="currentColor" 
+             stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+        </svg>
+        <span class="font-medium">Add an Account</span>
+      </a>
+
+
+
+      
+
+      <!-- View Beneficiaries -->
+      <a href="{% url 'beneficiaries_list' %}"
+         class="flex items-center gap-3 px-4 py-3 rounded-lg bg-green-600 hover:bg-green-500 transition-all duration-200 shadow-md hover:shadow-lg">
+        <svg xmlns="http://www.w3.org/2000/svg" 
+             class="w-5 h-5" 
+             fill="none" 
+             viewBox="0 0 24 24" 
+             stroke="currentColor" 
+             stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5V10H2v10h5m10 0v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6m10 0H7" />
+        </svg>
+        <span class="font-medium">View Beneficiaries</span>
+      </a>
+
+
+
+
+      <form action="{% url 'logout' %}" method="post">
+  {% csrf_token %}
+  <button type="submit"
+          class="flex items-center gap-3 px-4 py-3 rounded-lg bg-red-600 hover:bg-red-500 transition-all duration-200 shadow-md hover:shadow-lg w-full">
+    <svg xmlns="http://www.w3.org/2000/svg" 
+         class="w-5 h-5" 
+         fill="none" 
+         viewBox="0 0 24 24" 
+         stroke="currentColor" 
+         stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round"
+            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1m0-10V5m0 0a2 2 0 00-2 2v1m0 10v1a2 2 0 002 2h5a2 2 0 002-2v-1" />
+    </svg>
+    <span class="font-medium">Logout</span>
+  </button>
+</form>
+
+    </nav>
+    
+  </aside>
+
+  <!-- 🧭 MAIN CONTENT -->
+  <main class="flex-1 flex flex-col">
+
+    <!-- 🔝 TOP NAVBAR -->
+    <!-- <header class="bg-white shadow-sm p-4 flex justify-between items-center ">
+      <h1 class="text-2xl font-bold text-gray-800">Select Your Bank Account</h1>
+    </header> -->
+
+    <header class="bg-white shadow-sm p-4 flex justify-center items-center bg-gradient-to-b from-blue-400 to-white-900">
+  <h1 class="text-2xl font-bold text-gray-800">Select Your Bank Account</h1>
+</header>
+
+
+    <!-- 🧱 BANK ACCOUNTS GRID -->
+    <section class="flex-1 p-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+        {% for account in accounts %}
+          <div
+            class="bank-card bg-white p-6 text-center rounded-2xl shadow-md cursor-pointer"
+            onclick="goToBank(
+              '{{ account.bank_name|escapejs }}',
+              '{{ account.remitter_name|escapejs }}',
+              '{{ account.remitter_account_number|escapejs }}',
+              '{{ account.remitter_address|escapejs }}',
+              '{{ account.branch|escapejs }}',
+              '{{ account.pan_no|escapejs }}',
+              '{{ account.remitter_LEI_code|escapejs }}',
+              '{{ account.mobile_number|escapejs }}',
+              '{{ account.other_number|escapejs }}'
+            )"
+          >
+            {% with account.bank_name|lower as name %}
+              {% if "axis" in name %}
+                <img src="/media/axis.png" alt="Axis Bank" class="mx-auto h-16 mb-4" />
+              {% elif "union" in name %}
+                <img src="/media/union.png" alt="Union Bank" class="mx-auto h-16 mb-4" />
+              {% elif "hdfc" in name %}
+                <img src="/media/hdfc.png" alt="Hdfc Bank" class="mx-auto h-16 mb-4" />
+              {% elif "icici" in name %}
+                <img src="/media/icici.png" alt="Icici Bank" class="mx-auto h-16 mb-4" />
+              {% elif "sbi" in name %}
+                <img src="/media/sbi.png" alt="Sbi Bank" class="mx-auto h-16 mb-4" />
+              {% elif "kotak" in name %}
+                <img src="/media/kotak.png" alt="Kotak Bank" class="mx-auto h-16 mb-4" />
+              {% else %}
+                <img src="{% static 'default_bank.png' %}" alt="Bank" class="mx-auto h-16 mb-4" />
+              {% endif %}
+            {% endwith %}
+
+            <h2 class="text-lg font-semibold text-gray-800">{{ account.bank_name }}</h2>
+            <p class="text-gray-600 mt-1"><strong>Name:</strong> {{ account.remitter_name|default:"—" }}</p>
+            <p class="text-gray-600"><strong>Account:</strong> {{ account.remitter_account_number|default:"—" }}</p>
+            <p class="text-gray-600"><strong>Branch:</strong> {{ account.branch|default:"—" }}</p>
+            <p class="text-gray-600"><strong>IFSC Code:</strong> {{ account.ifsc_code|default:"—" }}</p>
+          </div>
+        {% empty %}
+          <p class="text-center text-gray-600 col-span-full">
+            No bank accounts found.
+            <a href="{% url 'select_bank_2' %}" class="text-blue-500 underline">Add an account</a>.
+          </p>
+        {% endfor %}
+      </div>
+    </section>
+  </main>
+
+  <!-- 🚀 JavaScript for Redirect -->
+  <!-- <script>
+    function goToBank(bankName, name, account, address, branch, pan, lei, mobile, other) {
+      const params = new URLSearchParams({
+        remitter_name: name,
+        remitter_account: account,
+        remitter_address: address,
+        remitter_branch: branch,
+        remitter_pan: pan,
+        remitter_lei: lei,
+        remitter_mobile: mobile,
+        remitter_other: other
+      });
+
+      const lowerName = bankName.toLowerCase();
+      let url = '';
+
+      if (lowerName.includes('axis')) {
+        url = `/axis-bank/?${params.toString()}`;
+      } else if (lowerName.includes('union')) {
+        url = `/union-bank/?${params.toString()}`;
+      } else {
+        url = `/bank-details/?${params.toString()}`;
+      }
+      
+
+      console.log("➡️ Redirecting to:", url);
+      window.location.href = url;
+    }
+  </script> -->
+
+
+
+  <script>
+  function goToBank(bankName, name, account, address, branch, pan, lei, mobile, other) {
+    const params = new URLSearchParams({
+      remitter_name: name,
+      remitter_account: account,
+      remitter_address: address,
+      remitter_branch: branch,
+      remitter_pan: pan,
+      remitter_lei: lei,
+      remitter_mobile: mobile,
+      remitter_other: other
+    });
+
+    const lowerName = bankName.toLowerCase();
+    let url = '';
+
+    if (lowerName.includes('axis')) {
+      url = `/axis-bank/?${params.toString()}`;
+    } 
+    else if (lowerName.includes('union')) {
+      url = `/union-bank/?${params.toString()}`;
+    }
+    else if (lowerName.includes('hdfc')) {
+      url = `/hdfc-bank/?${params.toString()}`;
+    }
+    else {
+      url = `/bank-details/?${params.toString()}`;
+    }
+
+    console.log("➡️ Redirecting to:", url);
+    window.location.href = url;
+  }
+</script>
+
+
+</body>
+</html>

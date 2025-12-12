@@ -1,0 +1,101 @@
+<!-- {% extends 'base.html' %}
+{% block content %}
+<h2>{{ bank_name }} Accounts</h2>
+
+<div class="account-cards">
+  {% for account in accounts %}
+    <div class="account-card">
+      <h3>{{ account.remitter_name }}</h3>
+      <p><strong>Account Number:</strong> {{ account.remitter_account_number }}</p>
+      <p><strong>Branch:</strong> {{ account.branch }}</p>
+      <p><strong>PAN:</strong> {{ account.pan_no }}</p>
+      <p><strong>Address:</strong> {{ account.remitter_address }}</p>
+      <p><strong>Mobile:</strong> {{ account.mobile_number }}</p>
+      {% if account.other_number %}
+        <p><strong>Other Number:</strong> {{ account.other_number }}</p>
+      {% endif %}
+    </div>
+  {% empty %}
+    <p>No accounts found for {{ bank_name }}.</p>
+  {% endfor %}
+</div>
+
+<style>
+.account-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.account-card {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 10px;
+  width: 280px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+.account-card:hover {
+  transform: scale(1.03);
+}
+</style>
+{% endblock %} -->
+
+
+
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="text-2xl font-bold mb-6">{{ bank_name }} Accounts</h2>
+
+<div class="account-cards">
+  {% for account in accounts %}
+    <a href="{% url 'axis_bank' %}?remitter_name={{ account.remitter_name|urlencode }}&remitter_account={{ account.remitter_account_number|urlencode }}&remitter_address={{ account.remitter_address|urlencode }}&remitter_branch={{ account.branch|urlencode }}"
+       class="account-card-link">
+      <div class="account-card">
+        <h3 class="font-semibold text-lg text-gray-800">{{ account.remitter_name }}</h3>
+        <p><strong>Account Number:</strong> {{ account.remitter_account_number }}</p>
+        <p><strong>Branch:</strong> {{ account.branch }}</p>
+        <p><strong>PAN:</strong> {{ account.pan_no }}</p>
+        <p><strong>Address:</strong> {{ account.remitter_address }}</p>
+        <p><strong>Mobile:</strong> {{ account.mobile_number }}</p>
+        {% if account.other_number %}
+          <p><strong>Other Number:</strong> {{ account.other_number }}</p>
+        {% endif %}
+      </div>
+    </a>
+  {% empty %}
+    <p>No accounts found for {{ bank_name }}.</p>
+  {% endfor %}
+</div>
+
+<style>
+.account-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.account-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.account-card {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 10px;
+  width: 280px;
+  background: #fff;
+  box-shadow: 0 0 6px rgba(0,0,0,0.1);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.account-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  background-color: #fafafa;
+}
+</style>
+{% endblock %}

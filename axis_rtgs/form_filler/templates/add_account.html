@@ -1,0 +1,321 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Add Account | Axis Bank RTGS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #dbeafe, #eff6ff, #ffffff);
+      animation: gradientShift 10s ease infinite alternate;
+    }
+    @keyframes gradientShift {
+      from { background-position: 0% 50%; }
+      to { background-position: 100% 50%; }
+    }
+    .card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15);
+    }
+    input, textarea {
+      transition: all 0.25s ease-in-out;
+    }
+    input:focus, textarea:focus {
+      border-color: #2563eb !important;
+      box-shadow: 0 0 10px rgba(37, 99, 235, 0.3) !important;
+      background-color: #f8fafc;
+    }
+    .submit-btn {
+      background: linear-gradient(to right, #2563eb, #1e40af);
+      transition: all 0.3s ease-in-out;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+    }
+    .submit-btn:hover {
+      background: linear-gradient(to right, #1e40af, #2563eb);
+      transform: scale(1.03);
+      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.5);
+    }
+    label { letter-spacing: 0.3px; }
+    .fade-in {
+      animation: fadeIn 0.6s ease-in-out both;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body class="flex items-center justify-center min-h-screen font-sans">
+
+  <div class="card bg-white p-10 rounded-2xl shadow-xl w-full max-w-3xl border border-blue-100 fade-in">
+    <div class="text-center mb-8">
+      <h1 class="text-4xl font-extrabold text-blue-700 tracking-tight mb-2">
+        Add Account
+      </h1>
+      <p class="text-gray-500 text-sm">
+        Please fill in all required details below carefully.
+      </p>
+    </div>
+
+    <form method="POST" action="{% url 'add_account' %}" class="space-y-6">
+      {% csrf_token %}
+      <input type="hidden" name="bank_name" value="{{ bank_name }}">
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">
+            Remitter’s Account Number
+          </label>
+          <input type="text" name="remitter_account_number" maxlength="50" required
+                 class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Remitter Name</label>
+          <input type="text" name="remitter_name" maxlength="255" required
+                 class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Branch</label>
+          <input type="text" name="branch" maxlength="255" required
+                 class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">PAN Number</label>
+          <input type="text" name="pan_no" maxlength="10"
+                 class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Remitter LEI Code</label>
+          <input type="text" name="remitter_LEI_code" maxlength="255"
+                 class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Remitter Address</label>
+          <textarea name="remitter_address" maxlength="255"
+                    class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Mobile Number</label>
+          <input type="text" name="mobile_number" maxlength="20"
+                 class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Other Number</label>
+          <input type="text" name="other_number" maxlength="20"
+                 class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500">
+        </div>
+      </div>
+
+      <div class="pt-6 flex justify-center">
+        <button type="submit"
+                class="submit-btn text-white py-3 px-10 rounded-full font-semibold shadow-md tracking-wide">
+          Save Account
+        </button>
+      </div>
+    </form>
+
+    {% if messages %}
+      <div class="mt-6 text-center">
+        {% for message in messages %}
+          {% if message.tags == 'success' %}
+            <p class="text-green-600 font-medium">{{ message }}</p>
+          {% elif message.tags == 'error' %}
+            <p class="text-red-600 font-medium">{{ message }}</p>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+
+</body>
+</html> -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Add Account | Axis Bank RTGS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #dbeafe, #eff6ff, #ffffff);
+      animation: gradientShift 10s ease infinite alternate;
+    }
+    @keyframes gradientShift {
+      from { background-position: 0% 50%; }
+      to { background-position: 100% 50%; }
+    }
+    .card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15);
+    }
+    input, textarea {
+      transition: all 0.25s ease-in-out;
+    }
+    input:focus, textarea:focus {
+      border-color: #2563eb !important;
+      box-shadow: 0 0 10px rgba(37, 99, 235, 0.3) !important;
+      background-color: #f8fafc;
+    }
+    .submit-btn {
+      background: linear-gradient(to right, #2563eb, #1e40af);
+      transition: all 0.3s ease-in-out;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+    }
+    .submit-btn:hover {
+      background: linear-gradient(to right, #1e40af, #2563eb);
+      transform: scale(1.03);
+      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.5);
+    }
+    label { letter-spacing: 0.3px; }
+    .fade-in {
+      animation: fadeIn 0.6s ease-in-out both;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body class="flex items-center justify-center min-h-screen font-sans">
+
+  <div class="card bg-white p-10 rounded-2xl shadow-xl w-full max-w-3xl border border-blue-100 fade-in">
+    <div class="text-center mb-8">
+      <h1 class="text-4xl font-extrabold text-blue-700 tracking-tight mb-2">
+        Add Account
+      </h1>
+      <p class="text-gray-500 text-sm">
+        Please fill in all required details below carefully.
+      </p>
+    </div>
+
+    <form method="POST" action="{% url 'add_account' %}" class="space-y-6">
+      {% csrf_token %}
+      <input type="hidden" name="bank_name" value="{{ bank_name }}">
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- Remitter Account Number -->
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">
+            Remitter’s Account Number
+          </label>
+          <input type="text" name="remitter_account_number" maxlength="50" required
+                 value="{{ remitter_account_number|default:'' }}"
+                 class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 {% if errors.remitter_account_number %}border-red-500{% endif %}">
+          {% if errors.remitter_account_number %}
+            <p class="text-red-600 text-sm mt-1">{{ errors.remitter_account_number }}</p>
+          {% endif %}
+        </div>
+
+        <!-- Remitter Name -->
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Remitter Name</label>
+          <input type="text" name="remitter_name" maxlength="255" required
+                 value="{{ remitter_name|default:'' }}"
+                 class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 {% if errors.remitter_name %}border-red-500{% endif %}">
+          {% if errors.remitter_name %}
+            <p class="text-red-600 text-sm mt-1">{{ errors.remitter_name }}</p>
+          {% endif %}
+        </div>
+
+        <!-- Branch -->
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Branch</label>
+          <input type="text" name="branch" maxlength="255" required
+                 value="{{ branch|default:'' }}"
+                 class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 {% if errors.branch %}border-red-500{% endif %}">
+          {% if errors.branch %}
+            <p class="text-red-600 text-sm mt-1">{{ errors.branch }}</p>
+          {% endif %}
+        </div>
+
+        <!-- PAN Number -->
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">PAN Number</label>
+          <input type="text" name="pan_no" maxlength="10"
+                 value="{{ pan_no|default:'' }}"
+                 class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 {% if errors.pan_no %}border-red-500{% endif %}">
+          {% if errors.pan_no %}
+            <p class="text-red-600 text-sm mt-1">{{ errors.pan_no }}</p>
+          {% endif %}
+        </div>
+
+        <!-- IFSC Code -->
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">IFSC Code</label>
+          <input type="text" name="ifsc_code" maxlength="11"
+                value="{{ ifsc_code|default:'' }}"
+                class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 {% if errors.ifsc_code %}border-red-500{% endif %}">
+          {% if errors.ifsc_code %}
+            <p class="text-red-600 text-sm mt-1">{{ errors.ifsc_code }}</p>
+          {% endif %}
+        </div>
+
+
+        <!-- Remitter Address -->
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Remitter Address</label>
+          <textarea name="remitter_address" maxlength="255"
+                    class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 {% if errors.remitter_address %}border-red-500{% endif %}">{{ remitter_address|default:'' }}</textarea>
+          {% if errors.remitter_address %}
+            <p class="text-red-600 text-sm mt-1">{{ errors.remitter_address }}</p>
+          {% endif %}
+        </div>
+
+        <!-- Mobile Number -->
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Mobile Number</label>
+          <input type="text" name="mobile_number" maxlength="10"
+                 value="{{ mobile_number|default:'' }}"
+                 class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 {% if errors.mobile_number %}border-red-500{% endif %}">
+          {% if errors.mobile_number %}
+            <p class="text-red-600 text-sm mt-1">{{ errors.mobile_number }}</p>
+          {% endif %}
+        </div>
+
+        <!-- Other Number -->
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Other Number</label>
+          <input type="text" name="other_number" maxlength="10"
+                 value="{{ other_number|default:'' }}"
+                 class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 {% if errors.other_number %}border-red-500{% endif %}">
+          {% if errors.other_number %}
+            <p class="text-red-600 text-sm mt-1">{{ errors.other_number }}</p>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="pt-6 flex justify-center">
+        <button type="submit"
+                class="submit-btn text-white py-3 px-10 rounded-full font-semibold shadow-md tracking-wide">
+          Save Account
+        </button>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>

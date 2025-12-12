@@ -1,0 +1,175 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Beneficiary</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+  <form method="POST" class="bg-white p-8 rounded-lg shadow-md w-96">
+    {% csrf_token %}
+    <h2 class="text-xl font-bold mb-6 text-center text-gray-700">Edit Beneficiary</h2>
+
+    <div class="mb-4">
+      <label class="block text-gray-600 font-medium mb-1">Name</label>
+      <input type="text" name="name" value="{{ beneficiary.name }}" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-blue-200">
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-gray-600 font-medium mb-1">Account Number</label>
+      <input type="text" name="account_number" value="{{ beneficiary.account_number }}" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-blue-200">
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-gray-600 font-medium mb-1">Bank Name</label>
+      <input type="text" name="bank_name" value="{{ beneficiary.bank_name }}" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-blue-200">
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-gray-600 font-medium mb-1">Bank Address</label>
+      <input type="text" name="bank_address" value="{{ beneficiary.bank_address }}" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-blue-200">
+    </div>
+
+    <div class="mb-6">
+      <label class="block text-gray-600 font-medium mb-1">IFSC Code</label>
+      <input type="text" name="ifsc_code" value="{{ beneficiary.ifsc_code }}" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-blue-200">
+    </div>
+
+    <div class="flex justify-between">
+      <a href="{% url 'beneficiaries_list' %}" class="px-4 py-2 bg-gray-400 text-white rounded hover:bg-gray-500">Cancel</a>
+      <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-500">Save</button>
+    </div>
+  </form>
+
+</body>
+</html> -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Beneficiary</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* 🌈 Smooth background gradient animation */
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    body {
+      background: linear-gradient(-45deg, #3b82f6, #9333ea, #ec4899, #06b6d4);
+      background-size: 400% 400%;
+      animation: gradientFlow 12s ease infinite;
+    }
+
+    /* ✨ Floating card animation */
+    .form-card {
+      animation: floatIn 0.8s ease forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    @keyframes floatIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 🩵 Input focus styling */
+    input:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 6px rgba(59, 130, 246, 0.3);
+    }
+
+    /* ✳️ Button hover transitions */
+    .btn {
+      transition: all 0.3s ease;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    /* 🧭 Subtle glow around form */
+    .glow {
+      box-shadow: 0 0 25px rgba(59, 130, 246, 0.3);
+    }
+  </style>
+</head>
+
+<body class="flex items-center justify-center min-h-screen font-sans text-gray-800">
+
+  <div class="form-card bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md glow">
+    <h2 class="text-3xl font-extrabold mb-6 text-center text-blue-700 tracking-tight">
+      ✏️ Edit Beneficiary
+    </h2>
+
+    <form method="POST" class="space-y-5">
+      {% csrf_token %}
+
+      <!-- Name -->
+      <div>
+        <label class="block text-gray-600 font-medium mb-1">Name</label>
+        <input type="text" name="name" value="{{ beneficiary.name }}" 
+               class="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-400" required>
+      </div>
+
+      <!-- Account Number -->
+      <div>
+        <label class="block text-gray-600 font-medium mb-1">Account Number</label>
+        <input type="text" name="account_number" value="{{ beneficiary.account_number }}"
+               class="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-400" required>
+      </div>
+
+      <!-- Bank Name -->
+      <div>
+        <label class="block text-gray-600 font-medium mb-1">Bank Name</label>
+        <input type="text" name="bank_name" value="{{ beneficiary.bank_name }}"
+               class="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-400">
+      </div>
+
+      <!-- Bank Address -->
+      <div>
+        <label class="block text-gray-600 font-medium mb-1">Bank Address</label>
+        <input type="text" name="bank_address" value="{{ beneficiary.bank_address }}"
+               class="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-400">
+      </div>
+
+      <!-- IFSC Code -->
+      <div>
+        <label class="block text-gray-600 font-medium mb-1">IFSC Code</label>
+        <input type="text" name="ifsc_code" value="{{ beneficiary.ifsc_code }}"
+               class="w-full border border-gray-300 rounded-md px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-400">
+      </div>
+
+      <!-- Buttons -->
+      <div class="flex justify-between pt-4">
+        <a href="{% url 'beneficiaries_list' %}" 
+           class="btn bg-gray-400 text-white px-5 py-2 rounded-md hover:bg-gray-500 flex items-center gap-1">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          Back
+        </a>
+
+        <button type="submit" 
+                class="btn bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 flex items-center gap-1">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M5 13l4 4L19 7" />
+          </svg>
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Select Your Bank</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .hover-shadow-axis:hover { box-shadow: 0 10px 25px rgba(138,21,56,0.4); background-color: rgba(138,21,56,0.08); }
+    .hover-shadow-hdfc:hover { box-shadow: 0 10px 25px rgba(204,0,0,0.4); background-color: rgba(204,0,0,0.08); }
+    .hover-shadow-sbi:hover { box-shadow: 0 10px 25px rgba(0,51,160,0.4); background-color: rgba(0,51,160,0.08); }
+    .hover-shadow-icici:hover { box-shadow: 0 10px 25px rgba(253,101,0,0.4); background-color: rgba(253,101,0,0.08); }
+    .hover-shadow-kotak:hover { box-shadow: 0 10px 25px rgba(0,78,154,0.4); background-color: rgba(0,78,154,0,0.08); }
+    .hover-shadow-union:hover { box-shadow: 0 10px 25px rgba(255,244,79,0.4); background-color: rgba(255,244,79,0.2); }
+
+    .bg-axis { background-color: #fbecef; }
+    .bg-hdfc { background-color: #fdecef; }
+    .bg-sbi { background-color: #e9f2ff; }
+    .bg-icici { background-color: #fff1e6; }
+    .bg-kotak { background-color: #e9f3fb; }
+    .bg-union { background-color: #fffde0; }
+  </style>
+</head>
+
+
+
+
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-6 font-sans transition-colors duration-300" id="body">
+
+
+
+
+  <!-- <form action="{% url 'logout' %}" method="post"
+      class="fixed top-4 right-4 z-50">
+  {% csrf_token %}
+  <button type="submit"
+          class="flex items-center gap-3 px-4 py-3 rounded-lg bg-red-600 hover:bg-red-500 transition-all duration-200 shadow-md hover:shadow-lg">
+    <svg xmlns="http://www.w3.org/2000/svg" 
+         class="w-5 h-5" 
+         fill="none" 
+         viewBox="0 0 24 24" 
+         stroke="currentColor" 
+         stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round"
+            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1m0-10V5m0 0a2 2 0 00-2 2v1m0 10v1a2 2 0 002 2h5a2 2 0 002-2v-1" />
+    </svg>
+    <span class="font-medium">Logout</span>
+  </button>
+</form> -->
+
+
+
+  <h1 class="text-4xl font-bold text-gray-800 mb-8 text-center">
+    🏦 Select Bank to Add Your Account
+  </h1>
+
+  <!-- Bank Cards -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl w-full">
+
+    <!-- Axis Bank -->
+    <a href="{% url 'add_account' %}?bank_name=Axis Bank"
+      onmouseover="setBodyColor('bg-axis')" onmouseout="resetBodyColor()"
+      class="bg-white p-6 text-center rounded-xl shadow-md transform transition hover:scale-105 group hover-shadow-axis block">
+      <img src="/media/axis.png" alt="Axis Bank" class="mx-auto h-16 mb-4 grayscale group-hover:grayscale-0 transition duration-300" />
+      <h2 class="text-lg font-semibold text-gray-700">Axis Bank</h2>
+    </a>
+
+    <!-- HDFC Bank -->
+    <a href="{% url 'add_account' %}?bank_name=HDFC Bank"
+      onmouseover="setBodyColor('bg-hdfc')" onmouseout="resetBodyColor()"
+      class="bg-white p-6 text-center rounded-xl shadow-md transform transition hover:scale-105 group hover-shadow-hdfc block">
+      <img src="/media/hdfc.png" alt="HDFC Bank" class="mx-auto h-16 mb-4 grayscale group-hover:grayscale-0 transition duration-300" />
+      <h2 class="text-lg font-semibold text-gray-700">HDFC Bank</h2>
+    </a>
+
+    <!-- SBI Bank -->
+    <a href="{% url 'add_account' %}?bank_name=SBI Bank"
+      onmouseover="setBodyColor('bg-sbi')" onmouseout="resetBodyColor()"
+      class="bg-white p-6 text-center rounded-xl shadow-md transform transition hover:scale-105 group hover-shadow-sbi block">
+      <img src="/media/sbi.png" alt="SBI Bank" class="mx-auto h-16 mb-4 grayscale group-hover:grayscale-0 transition duration-300" />
+      <h2 class="text-lg font-semibold text-gray-700">SBI Bank</h2>
+    </a>
+
+    <!-- ICICI Bank -->
+    <a href="{% url 'add_account' %}?bank_name=ICICI Bank"
+      onmouseover="setBodyColor('bg-icici')" onmouseout="resetBodyColor()"
+      class="bg-white p-6 text-center rounded-xl shadow-md transform transition hover:scale-105 group hover-shadow-icici block">
+      <img src="/media/icici.png" alt="ICICI Bank" class="mx-auto h-16 mb-4 grayscale group-hover:grayscale-0 transition duration-300" />
+      <h2 class="text-lg font-semibold text-gray-700">ICICI Bank</h2>
+    </a>
+
+    <!-- Kotak Bank -->
+    <a href="{% url 'add_account' %}?bank_name=Kotak Bank"
+      onmouseover="setBodyColor('bg-kotak')" onmouseout="resetBodyColor()"
+      class="bg-white p-6 text-center rounded-xl shadow-md transform transition hover:scale-105 group hover-shadow-kotak block">
+      <img src="/media/kotak.png" alt="Kotak Bank" class="mx-auto h-16 mb-4 grayscale group-hover:grayscale-0 transition duration-300" />
+      <h2 class="text-lg font-semibold text-gray-700">Kotak Bank</h2>
+    </a>
+
+    <!-- Union Bank -->
+    <a href="{% url 'add_account' %}?bank_name=Union Bank"
+      onmouseover="setBodyColor('bg-union')" onmouseout="resetBodyColor()"
+      class="bg-white p-6 text-center rounded-xl shadow-md transform transition hover:scale-105 group hover-shadow-union block">
+      <img src="/media/union.png" alt="Union Bank" class="mx-auto h-16 mb-4 grayscale group-hover:grayscale-0 transition duration-300" />
+      <h2 class="text-lg font-semibold text-gray-700">Union Bank</h2>
+    </a>
+
+  </div>
+
+  {% if messages %}
+    {% for message in messages %}
+      <p class="text-green-600 font-medium text-center my-4">{{ message }}</p>
+    {% endfor %}
+  {% endif %}
+
+  <div class="flex justify-center mt-6">
+    <a href="{% url 'login' %}" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300 shadow-md">
+      Proceed to Login
+    </a>
+  </div>
+
+  <script>
+    const body = document.getElementById('body');
+
+    function setBodyColor(className) {
+      body.classList.remove("bg-gray-100");
+      body.classList.add(className);
+    }
+
+    function resetBodyColor() {
+      body.className = "bg-gray-100 min-h-screen flex flex-col items-center justify-center p-6 font-sans transition-colors duration-300";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signup Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .signup-container {
+      background: white;
+      padding: 2rem 3rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 350px;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+    input:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    p {
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .error {
+      color: red;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    .success {
+      color: green;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div claass="signup-container">
+    <h2>Sign Up</h2>
+    <form action="{% url 'signup' %}" method="POST">
+      {% csrf_token %}
+      <input type="text" name="username" placeholder="Username" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="text" name="phone" placeholder="Phone Number" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+      <button type="submit">Sign Up</button>
+    </form>
+
+    {% if messages %}
+      <ul>
+        {% for message in messages %}
+          <li class="{% if message.tags == 'error' %}error{% else %}success{% endif %}">
+            {{ message }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    <p>Already have an account? <a href="/login/">Login</a></p>
+  </div>
+</body>
+</html> -->
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signup Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .signup-container {
+      background: white;
+      padding: 2rem 3rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 350px;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+    input:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+    input.error-input {
+      border-color: red;
+    }
+    .error-message {
+      color: red;
+      font-size: 0.85rem;
+      margin-top: -8px;
+      margin-bottom: 5px;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    p {
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-container">
+    <h2>Sign Up</h2>
+
+    <form action="{% url 'signup' %}" method="POST">
+      {% csrf_token %}
+      
+      <input type="text" name="username" placeholder="Username" 
+             value="{{ username|default:'' }}"
+             class="{% if errors.username %}error-input{% endif %}">
+      {% if errors.username %}
+        <div class="error-message">{{ errors.username }}</div>
+      {% endif %}
+
+      <input type="email" name="email" placeholder="Email" 
+             value="{{ email|default:'' }}"
+             class="{% if errors.email %}error-input{% endif %}">
+      {% if errors.email %}
+        <div class="error-message">{{ errors.email }}</div>
+      {% endif %}
+
+      <input type="text" name="phone" placeholder="Phone Number" 
+             value="{{ phone|default:'' }}"
+             class="{% if errors.phone %}error-input{% endif %}">
+      {% if errors.phone %}
+        <div class="error-message">{{ errors.phone }}</div>
+      {% endif %}
+
+      <input type="password" name="password" placeholder="Password" 
+             class="{% if errors.password %}error-input{% endif %}">
+      {% if errors.password %}
+        <div class="error-message">{{ errors.password }}</div>
+      {% endif %}
+
+      <input type="password" name="confirm_password" placeholder="Confirm Password" 
+             class="{% if errors.confirm_password %}error-input{% endif %}">
+      {% if errors.confirm_password %}
+        <div class="error-message">{{ errors.confirm_password }}</div>
+      {% endif %}
+
+      <button type="submit">Sign Up</button>
+    </form>
+
+    <p>Already have an account? <a href="/login/">Login</a></p>
+  </div>
+</body>
+</html>

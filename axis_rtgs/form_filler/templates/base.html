@@ -1,0 +1,53 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Form Filler{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen font-sans">
+  <header class="bg-blue-600 text-white p-4 text-center text-2xl font-semibold">
+    🏦 Bank Form Portal
+  </header>
+
+  <main class="p-6">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="text-center text-gray-600 text-sm py-4">
+    © {{ now|date:"Y" }} Bank Form Filler. All rights reserved.
+  </footer>
+</body>
+</html> -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Axis RTGS{% endblock %}</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+  <!-- Navbar -->
+  <nav class="bg-blue-600 text-white p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-xl font-bold">Axis RTGS</h1>
+      <div>
+        <a href="/" class="hover:underline">Home</a>
+        <a href="/logout/" class="ml-4 hover:underline">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="container mx-auto p-6">
+    {% block content %}
+    {% endblock %}
+  </main>
+
+</body>
+</html>
